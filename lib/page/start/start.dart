@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/page/start/repository.dart';
+import 'package:flutter_sample_app/page/start/repository.dart';
 
-import '../pdf/start.dart';
 import '../settings/start.dart';
 import '../web/start.dart';
 
@@ -53,12 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => const WebPage(title: 'Web')),
         );
         break;
-      case 'Pdf':
+      /*case 'Pdf':
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const PdfPage(title: 'Pdf')),
         );
-        break;
+        break;*/
       case 'Settings':
         Navigator.push(
           context,
