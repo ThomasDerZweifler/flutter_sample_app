@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/page/start/repository.dart';
 
+import '../dynamic/start.dart';
 import '../pdf/start.dart';
 import '../settings/start.dart';
 import '../web/start.dart';
@@ -47,6 +48,12 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'Load JSON from assets':
         _loadLocalData();
         break;
+      case 'DynamicPage':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const DynamicPage(title: 'Dynamic page')),
+        );
+        break;
       case 'Web':
         Navigator.push(
           context,
@@ -90,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
               return {
                 'Load JSON remote(cached)',
                 'Load JSON from assets',
+                'DynamicPage',
                 'Web',
                 'Pdf',
                 'Settings'

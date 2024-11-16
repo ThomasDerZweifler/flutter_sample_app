@@ -41,6 +41,8 @@ dependencies:
   path_provider: ^2.1.5
   syncfusion_flutter_pdfviewer: ^27.1.58
   device_info_plus: ^10.1.0
+  #json_dynamic_widget_plugin_material_icons: ^4.0.0+24
+  json_dynamic_widget: ^7.3.1+8
 
 dev_dependencies:
   flutter_test:
