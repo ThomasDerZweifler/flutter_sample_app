@@ -51,7 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'DynamicPage':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const DynamicPage(title: 'Dynamic page')),
+          MaterialPageRoute(
+              builder: (context) => const DynamicPage(title: 'Dynamic page')),
         );
         break;
       case 'Web':
@@ -83,10 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -115,13 +113,25 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Expanded(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  'lorem ipsum',
+                  style: const TextStyle(
+                      fontFamily: 'Courier',
+                      fontSize: 125,
+                      fontWeight: FontWeight.w400),
+                ),
+              ),
+            ),
             const Text(
               'use menu',
             ),
             Semantics(
                 child: Text(
-                  _result,
-                )),
+              _result,
+            )),
           ],
         ),
       ),

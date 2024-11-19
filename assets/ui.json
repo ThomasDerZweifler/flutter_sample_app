@@ -7,16 +7,22 @@
         "title": {
           "type": "text",
           "args": {
-            "text":  "Dynamic Widget Example"
+            "text": "Dynamic Widget Example"
           }
         }
       }
     },
-    "body":{
+    "body": {
       "type": "column",
       "args": {
         "crossAxisAlignment": "stretch",
         "children": [
+          {
+            "type": "text",
+            "args": {
+              "text": "none selectable text"
+            }
+          },
           {
             "type": "network_image",
             "args": {
