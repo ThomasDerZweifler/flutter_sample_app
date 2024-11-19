@@ -113,6 +113,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SelectableText.rich(TextSpan(
+              text: 'Hello', // default text style
+              children: <TextSpan>[
+                TextSpan(
+                    text: ' beautiful ',
+                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 35)),
+                TextSpan(
+                    text: 'world',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 45)),
+              ],
+            )),
             Expanded(
               child: FittedBox(
                 fit: BoxFit.scaleDown,
