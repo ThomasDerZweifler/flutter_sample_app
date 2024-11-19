@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-//import 'package:json_dynamic_widget/json_dynamic_widget.dart';
+import 'package:http/http.dart' as http;
+import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 
 /*
 page layouts by json
+
+https://medium.com/@nesattalhakurtulus/a-flexible-solution-or-a-dynamic-nightmare-json-dynamic-widget-for-starters-32a97aff20b8
  */
 class DynamicPage extends StatefulWidget {
   const DynamicPage({super.key, required this.title});
@@ -14,26 +20,65 @@ class DynamicPage extends StatefulWidget {
 }
 
 class _DynamicWidgetExampleState extends State<DynamicPage> {
-  String json = '''
-  {
-    "type": "container",
-    "padding": "16.0",
-    "child": {
-      "type": "raised_button",
-      "child": {
-        "type": "text",
-        "data": "Press Me"
-      },
-      "onPressed": "print('Button pressed!')"
+  late Future<JsonWidgetData?> _jsonWidgetData;
+
+  final jsonData = {
+    "type": "column",
+    "args": <String, List<Map<String, Object>>>{
+      "children": [
+        {
+          "type": "text",
+          "args": {"text": "json_dynamic_widget : string"}
+        }
+      ]
+    }
+  };
+
+  Future<JsonWidgetData> getWidgetDataFromString() async {
+    if (kDebugMode) {
+      print('returns widget data from string');
+    }
+    final registry = JsonWidgetRegistry.instance;
+    return JsonWidgetData.fromDynamic(jsonData, registry: registry);
+  }
+
+  Future<JsonWidgetData> getWidgetDataFromAssets() async {
+    final String s = await rootBundle.loadString('assets/ui.json');
+
+    final jsonData = json.decode(s);
+
+    if (kDebugMode) {
+      print('returns widget data from assets');
+    }
+    final registry = JsonWidgetRegistry.instance;
+    return JsonWidgetData.fromDynamic(jsonData, registry: registry);
+  }
+
+  Future<JsonWidgetData?> fetchWidgetData() async {
+    final response =
+    await http.get(Uri.parse('https://example.com/api/widget'));
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      if (kDebugMode) {
+        print('returns widget data from http');
+      }
+      final registry = JsonWidgetRegistry.instance;
+      return JsonWidgetData.fromDynamic(jsonResponse, registry: registry);
+    } else {
+      throw Exception('Failed to load widget data');
     }
   }
-  ''';
+
+  @override
+  void initState() {
+    super.initState();
+    //_jsonWidgetData = fetchWidgetData();
+    _jsonWidgetData = getWidgetDataFromAssets();
+    //_jsonWidgetData = getWidgetDataFromString();
+  }
 
   @override
   Widget build(BuildContext context) {
-    //final registry = JsonWidgetRegistry.instance;
-    //final data = JsonWidgetData.fromDynamic(json);
-
     return Scaffold(
         appBar: AppBar(
           // TRY THIS: Try changing the color here to a specific color (to
@@ -46,20 +91,21 @@ class _DynamicWidgetExampleState extends State<DynamicPage> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
-          /*actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.bookmark,
-                color: Colors.white,
-                semanticLabel: 'Bookmark',
-              ),
-              onPressed: () {
-                _pdfViewerKey.currentState?.openBookmarkView();
-              },
-            ),
-          ],*/
         ),
-
-        body: Text(json)); //data.build(context: context, registry: registry));
+        body: FutureBuilder<JsonWidgetData?>(
+          future: _jsonWidgetData,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              return snapshot.data!.build(context: context);
+            } else {
+              return Center(child: Text('No widget data'));
+            }
+          },
+        )
+    );
   }
 }

@@ -1,0 +1,52 @@
+{
+  "type": "scaffold",
+  "args": {
+    "appBar": {
+      "type": "app_bar",
+      "args": {
+        "title": {
+          "type": "text",
+          "args": {
+            "text":  "Dynamic Widget Example"
+          }
+        }
+      }
+    },
+    "body":{
+      "type": "column",
+      "args": {
+        "crossAxisAlignment": "stretch",
+        "children": [
+          {
+            "type": "card",
+            "args": {
+              "color": "#000000",
+              "child": {
+                "type": "padding",
+                "args": {
+                  "padding": 20,
+                  "child": {
+                    "type": "column",
+                    "args": {
+                      "children": [
+                        {
+                          "type": "text",
+                          "args": {
+                            "text": "A Card from JSON data",
+                            "style": {
+                              "color": "#ffaaaa"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
