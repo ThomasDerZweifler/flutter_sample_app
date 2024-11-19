@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 
@@ -56,7 +55,7 @@ class _DynamicWidgetExampleState extends State<DynamicPage> {
 
   Future<JsonWidgetData?> fetchWidgetData() async {
     final response =
-    await http.get(Uri.parse('https://example.com/api/widget'));
+        await http.get(Uri.parse('https://example.com/api/widget'));
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       if (kDebugMode) {
@@ -75,6 +74,7 @@ class _DynamicWidgetExampleState extends State<DynamicPage> {
     //_jsonWidgetData = fetchWidgetData();
     _jsonWidgetData = getWidgetDataFromAssets();
     //_jsonWidgetData = getWidgetDataFromString();
+
   }
 
   @override
@@ -84,10 +84,7 @@ class _DynamicWidgetExampleState extends State<DynamicPage> {
           // TRY THIS: Try changing the color here to a specific color (to
           // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
           // change color while the other colors stay the same.
-          backgroundColor: Theme
-              .of(context)
-              .colorScheme
-              .inversePrimary,
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
@@ -105,7 +102,6 @@ class _DynamicWidgetExampleState extends State<DynamicPage> {
               return Center(child: Text('No widget data'));
             }
           },
-        )
-    );
+        ));
   }
 }

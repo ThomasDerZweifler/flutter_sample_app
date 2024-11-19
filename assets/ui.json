@@ -18,13 +18,20 @@
         "crossAxisAlignment": "stretch",
         "children": [
           {
+            "type": "network_image",
+            "args": {
+              "fit": "cover",
+              "src": "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+            }
+          },
+          {
             "type": "card",
             "args": {
-              "color": "#000000",
+              "color": "#a0a0ff",
               "child": {
                 "type": "padding",
                 "args": {
-                  "padding": 20,
+                  "padding": 30,
                   "child": {
                     "type": "column",
                     "args": {
@@ -34,7 +41,7 @@
                           "args": {
                             "text": "A Card from JSON data",
                             "style": {
-                              "color": "#ffaaaa"
+                              "color": "#ffffff"
                             }
                           }
                         }
