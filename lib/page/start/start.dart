@@ -114,13 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SelectableText.rich(TextSpan(
-              text: 'Hello', // default text style
+              text: 'You', // default text style
               children: <TextSpan>[
                 TextSpan(
-                    text: ' beautiful ',
+                    text: ' can ',
                     style: TextStyle(fontStyle: FontStyle.italic, fontSize: 35)),
                 TextSpan(
-                    text: 'world',
+                    text: 'select me!',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 45)),
               ],
             )),

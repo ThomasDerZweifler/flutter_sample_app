@@ -20,7 +20,11 @@
           {
             "type": "text",
             "args": {
-              "text": "none selectable text"
+              "text": "none selectable text",
+              "style": {
+                "fontSize": 24,
+                "color": "#ffaaaa"
+              }
             }
           },
           {
@@ -47,6 +51,7 @@
                           "args": {
                             "text": "A Card from JSON data",
                             "style": {
+                              "fontSize": 35,
                               "color": "#ffffff"
                             }
                           }

@@ -47,38 +47,44 @@ class DetailScreen extends StatelessWidget {
 }
 
 class _MySettingsPageState extends State<SettingsPage> {
+  final List<int> _items = List<int>.generate(50, (int index) => index);
+
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
+    final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
+
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      //passing in the ListView.builder
-      body: ListView.builder(
-        itemCount: sections.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(sections[index].title),
-            // When a user taps the ListTile, navigate to the DetailScreen.
-            // Notice that you're not only creating a DetailScreen, you're
-            // also passing the current section through to it.
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailScreen(section: sections[index]),
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
+        appBar: AppBar(
+          // TRY THIS: Try changing the color here to a specific color (to
+          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+          // change color while the other colors stay the same.
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+        ),
+        //passing in the ListView.builder
+        body: ReorderableListView(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          children: <Widget>[
+            for (int index = 0; index < _items.length; index += 1)
+              ListTile(
+                key: Key('$index'),
+                tileColor: _items[index].isOdd ? oddItemColor : evenItemColor,
+                title: Text('dragging Item ${_items[index]}'),
+              ),
+          ],
+          onReorder: (int oldIndex, int newIndex) {
+            setState(() {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+              final int item = _items.removeAt(oldIndex);
+              _items.insert(newIndex, item);
+            });
+          },
+        ));
   }
 }
