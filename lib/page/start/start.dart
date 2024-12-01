@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/page/start/repository.dart';
+import 'package:flutter_sample_app/page/youtube/start.dart';
 
 import '../dynamic/start.dart';
 import '../pdf/start.dart';
@@ -61,6 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => const WebPage(title: 'Web')),
         );
         break;
+      case 'YoutubePlayer':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const YoutubePlayerPage(title: 'Youtube Player')),
+        );
+        break;
       case 'Pdf':
         Navigator.push(
           context,
@@ -97,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Load JSON from assets',
                 'DynamicPage',
                 'Web',
+                'YoutubePlayer',
                 'Pdf',
                 'Settings'
               }.map((String choice) {
