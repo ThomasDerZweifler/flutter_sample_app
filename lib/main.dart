@@ -1,17 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/page/start/start.dart';
+import 'package:flutter_sample_app/page/settings/settings.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MainApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  ThemeMode themeMode = ThemeMode.system;
+  final settings = Settings.instance;
+
+  settingsChanged(settings) {
+    if (settings.darkMode) {
+      setState(() {
+        themeMode = ThemeMode.dark;
+      });
+    } else {
+      setState(() {
+        themeMode = ThemeMode.light;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    settings.settingsState.addListener(() {
+      settingsChanged(settings);
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        key: Key("root"),
         title: 'Flutter Sample App',
         theme: ThemeData(
           // This is the theme of your application.
@@ -32,7 +63,12 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const MyHomePage(title: 'Sample App'),
+        darkTheme: ThemeData(brightness: Brightness.dark),
+        themeMode: themeMode,
+        home: const HomePage(title: 'Sample App'),
+
+        //home: const WebPage(title: "WebPage"),
+
         debugShowCheckedModeBanner: false);
   }
 }

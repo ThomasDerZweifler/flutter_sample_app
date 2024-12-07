@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sample_app/page/web/menu.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../settings/settings.dart';
 
 class WebPage extends StatefulWidget {
   const WebPage({super.key, required this.title});
@@ -8,16 +11,38 @@ class WebPage extends StatefulWidget {
   final String title;
 
   @override
-  State<WebPage> createState() => _MyWebPageState();
+  State<WebPage> createState() => WebPageState();
 }
 
-class _MyWebPageState extends State<WebPage> {
+class WebPageState extends State<WebPage> {
   var loadingPercentage = 0;
   late final WebViewController controller;
+  final settings = Settings.instance;
+
+  settingsChanged(settings) {
+    if (settings.javaScript) {
+      controller.setJavaScriptMode(JavaScriptMode.unrestricted);
+    } else {
+      controller.setJavaScriptMode(JavaScriptMode.disabled);
+    }
+    if (kDebugMode) {
+      print('javaScript enabled:: ${settings.javaScript}');
+    }
+    if (settings.loadLastVisitedPage) {
+    } else {}
+    if (kDebugMode) {
+      print('loadLastVisitedPage enabled:: ${settings.loadLastVisitedPage}');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+
+    settings.settingsState.addListener(() {
+      settingsChanged(settings);
+    });
+
     controller = WebViewController()
       ..loadRequest(
         Uri.parse('https://flutter.dev'),
@@ -52,13 +77,13 @@ class _MyWebPageState extends State<WebPage> {
           // TRY THIS: Try changing the color here to a specific color (to
           // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
           // change color while the other colors stay the same.
-          backgroundColor: Theme
-              .of(context)
-              .colorScheme
-              .inversePrimary,
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+          actions: [
+            Menu(settings: settings, controller: controller),
+          ],
         ),
         //passing in the ListView.builder
         body: Padding(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sample_app/page/profile/start.dart';
 import 'package:flutter_sample_app/page/start/repository.dart';
 import 'package:flutter_sample_app/page/youtube/start.dart';
 
@@ -7,16 +8,16 @@ import '../pdf/start.dart';
 import '../settings/start.dart';
 import '../web/start.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   final startRepo = StartRepository();
 
   String _result = "n.a.";
@@ -74,6 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => const PdfPage(title: 'Pdf')),
         );
         break;
+      case 'Profile':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfilePage(title: 'Profile')),
+        );
+        break;
       case 'Settings':
         Navigator.push(
           context,
@@ -106,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Web',
                 'YoutubePlayer',
                 'Pdf',
+                'Profile',
                 'Settings'
               }.map((String choice) {
                 return PopupMenuItem<String>(
