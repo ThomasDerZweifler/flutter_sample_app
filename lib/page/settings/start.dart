@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'settings.dart';
+import 'package:flutter_sample_app/page/settings/setting_darkmode.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key, required this.title});
@@ -28,22 +27,12 @@ final sections = List.generate(
 
 class _MySettingsPageState extends State<SettingsPage> {
   final List<int> _items = List<int>.generate(10, (int index) => index);
-  final settings = Settings.instance;
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
     final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
-    final MaterialStateProperty<Icon?> thumbIcon =
-        MaterialStateProperty.resolveWith<Icon?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
-          return const Icon(Icons.check);
-        }
-        return const Icon(Icons.close);
-      },
-    );
 
     return Scaffold(
         appBar: AppBar(
@@ -59,31 +48,15 @@ class _MySettingsPageState extends State<SettingsPage> {
         body: ReorderableListView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           children: <Widget>[
-            SwitchListTile(
-              key: Key('AppSettingsDarkModeSystem'),
-              title: const Text('Use dark mode from system'),
-              thumbIcon: thumbIcon,
-              value: settings.darkModeSystem,
-              onChanged: (bool value) {
-                setState(() {
-                  settings.setDarkModeSystem(value);
-                });
-              },
-              secondary: const Icon(Icons.adb),
-            ),
-            SwitchListTile(
-              key: Key('AppSettingsDarkMode'),
-              title: const Text('Dark mode enabled'),
-              thumbIcon: thumbIcon,
-              value: settings.darkMode,
-              onChanged: (bool value) {
-                setState(() {
-                  settings.setDarkMode(value);
-                });
-              },
-              secondary: const Icon(Icons.adb),
-            ),
-            for (int index = 0; index < _items.length; index += 1)
+            Container(
+                key: Key('Settings 0'),
+                color: _items[0].isOdd ? oddItemColor : evenItemColor,
+                constraints: BoxConstraints.expand(
+                  height: 200.0,
+                ),
+                transform: Matrix4.rotationZ(0.1),
+                child: SettingsDarkMode(title: "title")),
+            for (int index = 1; index < _items.length-1; index += 1)
               Container(
                 key: Key('Settings $index'),
                 color: _items[index].isOdd ? oddItemColor : evenItemColor,
@@ -91,7 +64,7 @@ class _MySettingsPageState extends State<SettingsPage> {
                   height: 200.0,
                 ),
                 transform: Matrix4.rotationZ(0.1),
-                child: Text('Hello World',
+                child: Text('Settings $index',
                     style: Theme.of(context)
                         .textTheme
                         .headlineMedium!
