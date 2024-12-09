@@ -4,6 +4,7 @@ import 'package:flutter_sample_app/page/web/menu.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../settings/settings.dart';
+import 'navigation_controls.dart';
 
 class WebPage extends StatefulWidget {
   const WebPage({super.key, required this.title});
@@ -82,6 +83,7 @@ class WebPageState extends State<WebPage> {
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
           actions: [
+            NavigationControls(controller: controller),
             Menu(settings: settings, controller: controller),
           ],
         ),
