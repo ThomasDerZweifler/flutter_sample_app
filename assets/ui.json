@@ -1,0 +1,70 @@
+{
+  "type": "scaffold",
+  "args": {
+    "appBar": {
+      "type": "app_bar",
+      "args": {
+        "title": {
+          "type": "text",
+          "args": {
+            "text": "Dynamic Widget Example"
+          }
+        }
+      }
+    },
+    "body": {
+      "type": "column",
+      "args": {
+        "crossAxisAlignment": "stretch",
+        "children": [
+          {
+            "type": "text",
+            "args": {
+              "text": "none selectable text",
+              "style": {
+                "fontSize": 24,
+                "color": "#ffaaaa"
+              }
+            }
+          },
+          {
+            "type": "network_image",
+            "args": {
+              "fit": "cover",
+              "src": "https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+            }
+          },
+          {
+            "type": "card",
+            "args": {
+              "color": "#a0a0ff",
+              "child": {
+                "type": "padding",
+                "args": {
+                  "padding": 30,
+                  "child": {
+                    "type": "column",
+                    "args": {
+                      "children": [
+                        {
+                          "type": "text",
+                          "args": {
+                            "text": "A Card from JSON data",
+                            "style": {
+                              "fontSize": 35,
+                              "color": "#ffffff"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
