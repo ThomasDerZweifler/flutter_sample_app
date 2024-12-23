@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/page/profile/start.dart';
 import 'package:flutter_sample_app/page/start/repository.dart';
+import 'package:flutter_sample_app/page/support/support.dart';
 import 'package:flutter_sample_app/page/youtube/start.dart';
 
 import '../dynamic/start.dart';
@@ -19,6 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final startRepo = StartRepository();
+  final support = Support();
 
   String _result = "n.a.";
 
@@ -58,12 +62,20 @@ class _HomePageState extends State<HomePage> {
         );
         break;
       case 'Web':
+        if(Platform.isWindows) {
+          support.showDialogPlattformNotSupported(context);
+          break;
+        }
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const WebPage(title: 'Web')),
         );
         break;
       case 'YoutubePlayer':
+        if(Platform.isWindows) {
+          support.showDialogPlattformNotSupported(context);
+          break;
+        }
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const YoutubePlayerPage(title: 'Youtube Player')),
