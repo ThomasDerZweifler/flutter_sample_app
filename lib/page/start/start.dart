@@ -9,6 +9,7 @@ import 'package:flutter_sample_app/page/youtube/start.dart';
 import '../dynamic/start.dart';
 import '../pdf/start.dart';
 import '../settings/start.dart';
+import '../support/search.dart';
 import '../web/start.dart';
 
 class HomePage extends StatefulWidget {
@@ -135,6 +136,7 @@ class _HomePageState extends State<HomePage> {
               }).toList();
             },
           ),
+          AsyncSearchAnchor()
         ],
       ),
       body: Center(
